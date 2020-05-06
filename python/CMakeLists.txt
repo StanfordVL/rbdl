@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 3.12...3.15)
 
 include(FindPython RESULT_VARIABLE SUCCESS)
 
