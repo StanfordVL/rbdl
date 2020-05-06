@@ -1,8 +1,20 @@
-FIND_PROGRAM ( PYTHON "python" )
 
-SET (Python_ADDITIONAL_VERSIONS 2.7)
+include(FindPython RESULT_VARIABLE SUCCESS)
 
 INCLUDE ( UseCython )
+message(STATUS "Found FindPython Module in ${SUCCESS}")
+set(Python_FIND_VIRTUALENV "ONLY")
+find_package(Python COMPONENTS Interpreter NumPy)
+
+if (Python_NumPy_FOUND)
+      message(STATUS "Numpy ${Python_NumPy_VERSION} has been found in ${Python_NumPy_INCLUDE_DIRS}")
+else()
+      message(FATAL_ERROR "Numpy not found.")
+endif()
+
+#FindPython(PYTHON "python3.6")
+SET (Python_ADDITIONAL_VERSIONS 3.6)
+
 
 CONFIGURE_FILE (
   ${CMAKE_CURRENT_SOURCE_DIR}/setup.py.cmake
@@ -44,6 +56,7 @@ INCLUDE_DIRECTORIES (
   ${PROJECT_SOURCE_DIR}/include
   ${PROJECT_SOURCE_DIR}/python
   ${PROJECT_SOURCE_DIR}
+  ${Python_NumPy_INCLUDE_DIRS}
   )
 
 TARGET_LINK_LIBRARIES (rbdl-python rbdl )
@@ -57,5 +70,6 @@ IF (RBDL_BUILD_ADDON_URDFREADER)
 ENDIF()
 
 INSTALL ( TARGETS rbdl-python
-    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/python2.7/site-packages/
+    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/python3.6/site-packages
+    INCLUDES DESTINATION ${Python_NumPy_INCLUDE_DIRS}
 )
