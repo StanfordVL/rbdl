@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.12...3.15)
 
-SET (Python_ADDITIONAL_VERSIONS 3.6)
+SET (Python_ADDITIONAL_VERSIONS 3.7)
 include(FindPython RESULT_VARIABLE SUCCESS)
 
 INCLUDE ( UseCython )
 message(STATUS "Found FindPython Module in ${SUCCESS}")
 set(Python_FIND_VIRTUALENV "ONLY")
-set(Python_LIBRARY ${CMAKE_INSTALL_PREFIX}/lib/python3.6)
+set(Python_LIBRARY ${CMAKE_INSTALL_PREFIX}/lib/python3.7)
 
 find_package(Python COMPONENTS Interpreter Development NumPy)
 message(STATS "python lib ${Python_LIBRARY}")
@@ -75,6 +75,6 @@ IF (RBDL_BUILD_ADDON_URDFREADER)
 ENDIF()
 
 INSTALL ( TARGETS rbdl-python
-    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/python3.6/site-packages
+    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/python3.7/site-packages
     INCLUDES DESTINATION ${Python_NumPy_INCLUDE_DIRS}
 )
