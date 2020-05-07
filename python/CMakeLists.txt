@@ -6,7 +6,8 @@ include(FindPython RESULT_VARIABLE SUCCESS)
 INCLUDE ( UseCython )
 message(STATUS "Found FindPython Module in ${SUCCESS}")
 set(Python_FIND_VIRTUALENV "ONLY")
-set(Python_LIBRARY ${CMAKE_INSTALL_PREFIX}/lib/python3.7)
+set(Python_INCLUDE_DIR ${CMAKE_INSTALL_PREFIX}/include/python3.7m)
+find_package(Python COMPONENTS Interpreter NumPy)
 
 find_package(Python COMPONENTS Interpreter Development NumPy)
 message(STATS "python lib ${Python_LIBRARY}")
@@ -16,8 +17,6 @@ if (Python_NumPy_FOUND)
 else()
       message(FATAL_ERROR "Numpy not found.")
 endif()
-
-#FindPython(PYTHON "python3.6")
 
 
 
